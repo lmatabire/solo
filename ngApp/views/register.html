@@ -1,0 +1,16 @@
+<h2>Register</h2>
+<form ng-submit="controller.register()">
+<p>
+    <input type="text" placeholder="Username" ng-model="controller.user.username" required/>
+</p>
+<p>
+    <input type="email" placeholder="Email" ng-model="controller.user.email" required/>
+</p>
+<p>
+    <input type="password" placeholder="Password" ng-model="controller.user.password"required/>
+</p>
+<p>
+    <input type="password" placeholder="Confirm Password" ng-model="controller.cpassword"required/>
+</p>
+<button type="submit">Register</button>
+</form>
