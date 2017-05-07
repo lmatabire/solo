@@ -1,0 +1,20 @@
+<form ng-submit='controller.editUser()'>
+  <label>User</label>
+  <p>
+      <input type="text" placeholder="Username" ng-model="controller.user.username" required/>
+  </p>
+  <label>Email</label>
+  <p>
+      <input type="email" placeholder="Email" ng-model="controller.user.email" required/>
+  </p>
+  <label>Role</label>
+  <p>
+      <select placeholder="Role of User" ng-model="controller.user.userrole" required>
+          <option>Patient</option>
+          <option>Doctor</option>
+          <option>Nurse</option>
+            <option>Other</option>
+      </select>
+  </p>
+  <button type="submit">Update</button>
+</form>

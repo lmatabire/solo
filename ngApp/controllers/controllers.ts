@@ -42,9 +42,30 @@ namespace app.Controllers {
 
       }
     }
-    export class Patients {
-        public patient;
+    export class EditUserController {
+        public users;
+        public getUser(){
+        this.$http.get('/users').then((response)=>{
+          this.users = response.data;
+          console.log(response);
+        })
+        this.getUser();
+      }
+        public editUser() {
+            this.$http.put('/users', this.user).then((response) =>{
+              this.$state.go('home')
+            })
+        }
 
+        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private $stateParams: ng.ui.IStateParamsService) {
+
+      }
+        // constructor(private $http: ng.IHttpService,private $state: ng.ui.IStateService)
+            // private $stateParams: ng.ui.IStateParamsService) {
+            //   this.$http.get('/users' + this.$stateParams['id']).then((response)=>{
+            //     this.user = response.data;
+            //   })
+            // }
     }
 
     export class AboutController {

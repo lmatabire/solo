@@ -19,9 +19,9 @@ namespace app {
                 controller: app.Controllers.AboutController,
                 controllerAs: 'controller'
             })
-            .state('user', {
-                url:'/user',
-                templateUrl: '/ngApp/views/users.html',
+            .state('edit', {
+                url:'/edit',
+                templateUrl: '/ngApp/views/editUser.html',
                 controller: app.Controllers.EditUserController,
                 controllerAs: 'controller'
             })

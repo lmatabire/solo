@@ -39,7 +39,7 @@ router.post('/register', (req, res) => {
       res.end()
     }
   });
-});
+})
 
 router.post('/login', (req, res, next) => {
   if (!req.body.username || !req.body.password) {

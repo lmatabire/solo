@@ -1,4 +1,17 @@
-<h2>Home</h2>
-<p>
-    {{controller.message}}
-</p>
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat='user in controller.users'>
+        <td>
+          <a ui-sref="about({id: user._id})">{{user.username}}</a>
+        </td>
+        <td><span class='glyphicon glyphicon-mail'></span>{{user.email}}</td>
+        <td><a ui-sref='editUser({id: user._id})'>Edit</a></td>
+    </tr>
+  </tbody>
+</table>
