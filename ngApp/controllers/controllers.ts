@@ -1,7 +1,13 @@
 namespace app.Controllers {
 
     export class HomeController {
-        public message = 'Hello from the home page!';
+        public users;
+
+        constructor(private $http: ng.IHttpService){
+          this.$http.get('/users').then((response)=>{
+            this.users = response.data
+          })
+        }
     }
     export class RegisterController {
       public user;
@@ -52,7 +58,7 @@ namespace app.Controllers {
         this.getUser();
       }
         public editUser() {
-            this.$http.put('/users', this.user).then((response) =>{
+            this.$http.put('/users', this.users).then((response) =>{
               this.$state.go('home')
             })
         }

@@ -3,15 +3,27 @@
     <tr>
       <th>Username</th>
       <th>Email</th>
+      <th>Role</th>
+      <th>Edit User</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat='user in controller.users'>
         <td>
-          <a ui-sref="about({id: user._id})">{{user.username}}</a>
+          {{user.username}}
         </td>
-        <td><span class='glyphicon glyphicon-mail'></span>{{user.email}}</td>
-        <td><a ui-sref='editUser({id: user._id})'>Edit</a></td>
+        <td>
+          <a href="#">
+          <span class="glyphicon glyphicon-envelope"></span>
+          {{user.email}}
+        </a>
+        </td>
+        <td>
+          {{user.role}}
+        </td>
+          <td>
+            <a ui-sref='editUser({id: user._id})'>Edit</a>
+          </td>
     </tr>
   </tbody>
 </table>
