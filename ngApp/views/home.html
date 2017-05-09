@@ -1,6 +1,7 @@
 <table class='table table-bordered table-striped'>
   <thead>
     <tr>
+      <th>Id</>
       <th>Username</th>
       <th>Email</th>
       <th>Role</th>
@@ -9,21 +10,19 @@
   </thead>
   <tbody>
     <tr ng-repeat='user in controller.users'>
-        <td>
-          {{user.username}}
-        </td>
-        <td>
-          <a href="#">
-          <span class="glyphicon glyphicon-envelope"></span>
-          {{user.email}}
-        </a>
-        </td>
-        <td>
-          {{user.role}}
-        </td>
-          <td>
-            <a ui-sref='editUser({id: user._id})'>Edit</a>
-          </td>
+    <td>{{user._id}}</td>
+      <td>
+        <a ui-sref="about({id: user._id})">{{user.username}}</a>
+      </td>
+      <td>
+        <span class="glyphicon glyphicon-envelope"></span> {{user.email}}
+      </td>
+      <td>
+        {{user.role}}
+      </td>
+      <td>
+        <button type="button" ng-click="controller.editUser(user._id)">Edit</a>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -12,6 +12,15 @@ router.get('/', function(req, res, next) {
     res.json(err)
   });
 });
+/* GET users listing. */
+router.get('/:id', function(req, res, next) {
+  User.findOne({_id:req.params.id}).then((user) => {
+    console.log('');
+    res.json(user);
+  }).catch((err) => {
+    res.json(err)
+  });
+});
 router.get('/doctors', function(req, res, next){
   User.find({role: req.params.role}).then((doctors)=>{
     res.json(doctors)
@@ -38,9 +47,38 @@ router.post('/register', (req, res) => {
       console.log(newUser)
       res.end()
     }
+
   });
 })
-
+router.post('/update', (req, res) => {
+    User.findOne({_id:req.body._id}).then((user) => {
+  console.log("New Data: ",req.body);
+  user.username = req.body.username;
+  user.email = req.body.email;
+  if(req.body.role){
+    user.role = req.body.role;
+  }
+  if(req.body.occupation){
+      user.occupation = req.body.occupation;
+  }
+  user.save(function(err, newUser) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log("Added: ",newUser)
+      res.end()
+    }
+  });
+})
+})
+router.delete('/:id',(req, res)=>{
+  User.remove({_id: req.params.id}).then((user)=>{
+    console.log('You just deleted a user', user)
+    res.json(user);
+  }).catch((err)=>{
+    res.json(err)
+  })
+})
 router.post('/login', (req, res, next) => {
   if (!req.body.username || !req.body.password) {
     res.status(400).json({ message: "Please fill in all fields." });

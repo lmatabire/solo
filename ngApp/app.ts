@@ -14,13 +14,13 @@ namespace app {
                 controllerAs: 'controller'
             })
             .state('about', {
-                url: '/about',
+                url: '/about/:id',
                 templateUrl: '/ngApp/views/about.html',
                 controller: app.Controllers.AboutController,
                 controllerAs: 'controller'
             })
             .state('edit', {
-                url:'/edit',
+                url:'/edit/:id',
                 templateUrl: '/ngApp/views/editUser.html',
                 controller: app.Controllers.EditUserController,
                 controllerAs: 'controller'

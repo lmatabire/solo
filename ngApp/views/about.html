@@ -1,4 +1,9 @@
-<h2>About</h2>
-<p>
-    {{controller.message}}
-</p>
+<h2>About User</h2>
+
+<tr class="active">{{user.username}}</tr>
+<tr class="success">{{user.email}}</tr>
+<tr class="warning">{{user.role}}</tr>
+
+<a ui-sref='home'>Back to Users</a>
+
+<button class='btn btn-danger' ng-click='controller.deleteUser()'>Delete User</button>

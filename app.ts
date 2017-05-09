@@ -9,8 +9,10 @@ import * as mongoose from 'mongoose'
 
 import routes from './routes/index';
 import users from './routes/users';
+import patientVisits from './routes/patientVisits';
 
 require('./models/user');
+require('./models/patientVisit');
 require('./config/passport');
 
 const CONNECTION_STRING = 'mongodb://lmatabire:LEESNHU2016@ds133281.mlab.com:33281/hosp_app';

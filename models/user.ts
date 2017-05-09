@@ -16,7 +16,9 @@ let UserSchema = new mongoose.Schema({
   role: String,
   diagnosis: String,
   passwordHash: String,
-  salt: String
+  salt: String,
+  sex: String,
+  birthday: Date
 })
 
 UserSchema.method('setPassword', function(password) {

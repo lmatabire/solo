@@ -1,81 +1,91 @@
 namespace app.Controllers {
 
-    export class HomeController {
-        public users;
-
-        constructor(private $http: ng.IHttpService){
-          this.$http.get('/users').then((response)=>{
-            this.users = response.data
-          })
-        }
+  export class HomeController {
+    public users;
+    public user;
+    public editUser = function(id){
+      console.log("preesdded")
+      this.$state.go('edit', {id: id})
     }
-    export class RegisterController {
-      public user;
-      public cpassword
-      public register() {
-        console.log("registering...",this.user," and cpassword is:",this.cpassword);
-        if(this.cpassword == this.user.password){
-          this.$http.post('/users/register', this.user).then((response) => {
-            this.$state.go('home');
-          },(error)=>{
-            //error caught
-            console.log("Registration failed:",error)
-          })
-        }else{
-          alert("Passwords Do Not Match")
-        }
-      }
-
-      constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
-
-      }
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+      this.$http.get('/users').then((response) => {
+        this.users = response.data
+      })
     }
-    export class LoginController {
-      public user;
+  }
+  export class PatientVisitController {
+    public patientVisit;
 
-      public login() {
-        console.log("loging in...",this.user);
-          this.$http.post('/users/login', this.user).then((response) => {
-            let token = response.data;
-            console.log("token is:",token)
-            this.$state.go('home');
-          },(error)=>{
-            //error caught
-            console.log("login failed:",error)
-          })
-      }
-      constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
-
-      }
-    }
-    export class EditUserController {
-        public users;
-        public getUser(){
-        this.$http.get('/users').then((response)=>{
-          this.users = response.data;
-          console.log(response);
+    public createVisit() {
+      console.log("Saving...", this.patientVisit);
+        this.$http.post('/users/register', this.patientVisit).then((response) => {
+          this.$state.go('home');
+        }, (error) => {
+          //error caught
+          console.log("Registration failed:", error)
         })
-        this.getUser();
       }
-        public editUser() {
-            this.$http.put('/users', this.users).then((response) =>{
-              this.$state.go('home')
-            })
-        }
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+    }
+  }
+  export class LoginController {
+    public user;
 
-        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private $stateParams: ng.ui.IStateParamsService) {
+    public login() {
+      console.log("loging in...", this.user);
+      this.$http.post('/users/login', this.user).then((response) => {
+        let token = response.data;
+        console.log("token is:", token)
+        this.$state.go('home');
+      }, (error) => {
+        //error caught
+        console.log("login failed:", error)
+      })
+    }
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
 
-      }
-        // constructor(private $http: ng.IHttpService,private $state: ng.ui.IStateService)
-            // private $stateParams: ng.ui.IStateParamsService) {
-            //   this.$http.get('/users' + this.$stateParams['id']).then((response)=>{
-            //     this.user = response.data;
-            //   })
-            // }
+    }
+  }
+  export class EditUserController {
+    public user;
+
+    public editUser() {
+      console.log("fhtjfjf fgjgfjgfkn dffdjnn")
+      this.$http.post('/users/update', this.user).then((response) => {
+        let token = response.data;
+        console.log("token is:", token)
+        this.$state.go('home');
+      }, (error) => {
+        console.log("login failed:", error)
+      })
+    }
+    constructor(private $http: ng.IHttpService,
+      private $state: ng.ui.IStateService,
+      private $stateParams: ng.ui.IStateParamsService) {
+      this.$http.get('/users/' + this.$stateParams['id']).then((response) => {
+        console.log(response);
+        this.user = response.data;
+      })
+    }
+  }
+
+  export class AboutController {
+    public user;
+
+    public deleteUser() {
+      this.$http.delete('/users/' + this.$stateParams['id']).then((response)=>{
+        this.$state.go('home');
+      });
     }
 
-    export class AboutController {
-        public message = 'Hello from the about page!';
-    }
+    constructor(private $http: ng.IHttpService,
+                private $stateParams: ng.ui.IStateParamsService,
+                private $state: ng.ui.IStateService) {
+                  this.$http.get('/users/' + this.$stateParams['id']).then((response)=>{
+
+                    this.user = response.data;
+                  })
+                }
+  }
 
 }
