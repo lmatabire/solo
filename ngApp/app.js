@@ -32,6 +32,42 @@ var app;
             controller: app.Controllers.RegisterController,
             controllerAs: 'controller'
         })
+            .state('patientVisit', {
+            url: '/patientVisit',
+            templateUrl: '/ngApp/views/patientVisit.html',
+            controller: app.Controllers.PatientVisitController,
+            controllerAs: 'controller'
+        })
+            .state('doctors', {
+            url: '/doctors',
+            templateUrl: '/ngApp/views/doctors.html',
+            controller: app.Controllers.doctorsController,
+            controllerAs: 'controller'
+        })
+            .state('patients', {
+            url: '/patients',
+            templateUrl: '/ngApp/views/patients.html',
+            controller: app.Controllers.patientsController,
+            controllerAs: 'controller'
+        })
+            .state('edit-visit', {
+            url: '/edit-visit',
+            templateUrl: '/ngApp/views/edit-visit.html',
+            controller: app.Controllers.VisitListController,
+            controllerAs: 'controller'
+        })
+            .state('nurses', {
+            url: '/nurses',
+            templateUrl: '/ngApp/views/nurses.html',
+            controller: app.Controllers.nursesController,
+            controllerAs: 'controller'
+        })
+            .state('patientVisits', {
+            url: '/patientVisits',
+            templateUrl: '/ngApp/views/patientVisits.html',
+            controller: app.Controllers.PatientVisitController,
+            controllerAs: 'controller'
+        })
             .state('notFound', {
             url: '/notFound',
             templateUrl: '/ngApp/views/notFound.html'

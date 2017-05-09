@@ -1,0 +1,30 @@
+
+<p>
+  <h3>Location</h3>
+  <select placeholder="Location of Patient" ng-model="controller.patientVisit.location" required>
+      <option>Inpatient</option>
+      <option>Outpatient</option>
+  </select>
+</p>
+<p>
+  <h3>Insuarence</h3>
+  <select placeholder="Location of Patient" ng-model="controller.patientVisit.location" required>
+      <option>BlueCross</option>
+      <option>Aetna</option>
+      <option>Humana</option>
+      <option>Cigna</option>
+      <option>Molina HealthCare</option>
+  </select>
+</p>
+
+<input type="date" id="dt" onchange="mydate1();" hidden/>
+
+
+<form action="/html/tags/html_form_tag_action.cfm" method="post">
+<div>
+<h3>Clinical Note</h3>
+<textarea name="comments" id="comments" style="font-family:sans-serif;font-size:1.2em;">
+</textarea>
+</div>
+<button type="reset" class="btn btn-danger" > Reset </button>
+</form>

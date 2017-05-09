@@ -1,11 +1,12 @@
 import * as express from 'express';
-import User from '../models/user';
+import PatientVisit from '../models/patientVisit';
 import * as passport from 'passport';
+import Users from '../models/user';
 let router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  PatientVisit.find().then((PatientVisits) => {
+  PatientVisit.find().then((patientVisits) => {
     console.log('You have your hands in the cookie jar...');
     res.json(patientVisits);
   }).catch((err) => {
@@ -14,7 +15,7 @@ router.get('/', function(req, res, next) {
 });
 /* GET users listing. */
 router.get('/:id', function(req, res, next) {
-  PatientVisit.findOne({_id:req.params.id}).then((PatientVisit) => {
+  PatientVisit.findOne({_id:req.params.id}).then((Patient) => {
     console.log('');
     res.json(Patient);
   }).catch((err) => {
@@ -35,7 +36,7 @@ router.get('/patients', function(req, res, next) {
     res.json(err)
   });
 });
-router.post('/register', (req, res) => {
+router.post('/create', (req, res) => {
   let patientVisit: any = new PatientVisit();
   patientVisit.userId = req.body.userId;
   patientVisit.location = req.body.location;
@@ -54,7 +55,7 @@ router.post('/register', (req, res) => {
   });
 })
 router.post('/update', (req, res) => {
-    PatientVisit.findOne({_id:req.body._id}).then((visit) => {
+    PatientVisit.findOne({_id:req.body._id}).then((patientVisit) => {
   console.log("New Visit: ",req.body);
   patientVisit.userId = req.body.userId;
   patientVisit.location = req.body.location;
@@ -63,12 +64,12 @@ router.post('/update', (req, res) => {
   patientVisit.clinicalNotes = req.body.clinicalNotes;
   patientVisit.insuarence = req.body.insuarence;
   if(req.body.role){
-    user.role = req.body.role;
+    this.user.role = req.body.role;
   }
   if(req.body.occupation){
-      user.occupation = req.body.occupation;
+      this.user.occupation = req.body.occupation;
   }
-  user.save(function(err, newPatientVisit) {
+  patientVisit.save(function(err, newPatientVisit) {
     if (err) {
       console.log(err)
     } else {

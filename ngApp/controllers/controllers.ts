@@ -13,14 +13,83 @@ namespace app.Controllers {
       })
     }
   }
+  export class doctorsController {
+    public doctors;
+    public doctor;
+
+    public editDoctor = function(id){
+      console.log("preesdded")
+      this.$state.go('edit', {id: id})
+    }
+    public param = "Doctor";
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+      this.$http.get('users/doctors/'+ this.param).then((response) => {
+        console.log(response)
+        this.doctors = response.data
+      }, (err)=>{
+        console.log(err.data)
+      })
+    }
+  }
+  export class patientsController {
+    public patients;
+    public patient;
+
+    public editPatient = function(id){
+      console.log("preesdded")
+      this.$state.go('edit', {id: id})
+    }
+    public param ='Patient';
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+      this.$http.get('users/patients/'+ this.param).then((response) => {
+        console.log(response)
+        this.patients = response.data
+      }, (err)=>{
+        console.log(err.data)
+      })
+    }
+  }
+  export class nursesController {
+    public nurses;
+    public nurse;
+
+    public editNurse = function(id){
+      console.log("preesdded")
+      this.$state.go('edit', {id: id})
+    }
+    public param = "Nurse";
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+      this.$http.get('users/nurses/'+this.param).then((response) => {
+        console.log(response);
+
+        this.nurses = response.data
+      },(err)=>{
+        console.log(err.data);
+      })
+    }
+  }
+
+  export class VisitListController {
+    public patientVisits;
+    public patientVisit;
+    public editVisit = function(id){
+      console.log("preesdded")
+      this.$state.go('edit-visit', {id: id})
+    }
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+      this.$http.get('/patientVisits').then((response) => {
+        this.patientVisits = response.data
+      })
+    }
+  }
   export class PatientVisitController {
     public patientVisit;
 
     public createVisit() {
       console.log("Saving...", this.patientVisit);
-        this.$http.post('/users/register', this.patientVisit).then((response) => {
-          this.$state.go('home');
-        }, (error) => {
+        this.$http.post('/patientVisit/create', this.patientVisit).then((response) => {
+          this.$state.go('patientVisits');
+        },(error) => {
           //error caught
           console.log("Registration failed:", error)
         })
@@ -28,6 +97,27 @@ namespace app.Controllers {
     constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
     }
   }
+  export class RegisterController {
+  public user;
+  public cpassword
+  public register() {
+    console.log("registering...",this.user," and cpassword is:",this.cpassword);
+    if(this.cpassword == this.user.password){
+      this.$http.post('/users/register', this.user).then((response) => {
+        this.$state.go('home');
+      },(error)=>{
+        //error caught
+        console.log("Registration failed:",error)
+      })
+    }else{
+      alert("Passwords Do Not Match")
+    }
+  }
+
+  constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+
+  }
+}
   export class LoginController {
     public user;
 

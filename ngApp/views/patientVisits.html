@@ -1,6 +1,7 @@
 <table class='table table-bordered table-striped'>
   <thead>
     <tr>
+      <th>Id</>
       <th>Username</th>
       <th>Email</th>
       <th>Role</th>
@@ -9,6 +10,7 @@
   </thead>
   <tbody>
     <tr ng-repeat='user in controller.users'>
+    <td>{{user._id}}</td>
       <td>
         <a ui-sref="about({id: user._id})">{{user.username}}</a>
       </td>

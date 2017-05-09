@@ -18,6 +18,82 @@ var app;
             return HomeController;
         }());
         Controllers.HomeController = HomeController;
+        var doctorsController = (function () {
+            function doctorsController($http, $state) {
+                var _this = this;
+                this.$http = $http;
+                this.$state = $state;
+                this.editDoctor = function (id) {
+                    console.log("preesdded");
+                    this.$state.go('edit', { id: id });
+                };
+                this.param = "Doctor";
+                this.$http.get('users/doctors/' + this.param).then(function (response) {
+                    console.log(response);
+                    _this.doctors = response.data;
+                }, function (err) {
+                    console.log(err.data);
+                });
+            }
+            return doctorsController;
+        }());
+        Controllers.doctorsController = doctorsController;
+        var patientsController = (function () {
+            function patientsController($http, $state) {
+                var _this = this;
+                this.$http = $http;
+                this.$state = $state;
+                this.editPatient = function (id) {
+                    console.log("preesdded");
+                    this.$state.go('edit', { id: id });
+                };
+                this.param = 'Patient';
+                this.$http.get('users/patients/' + this.param).then(function (response) {
+                    console.log(response);
+                    _this.patients = response.data;
+                }, function (err) {
+                    console.log(err.data);
+                });
+            }
+            return patientsController;
+        }());
+        Controllers.patientsController = patientsController;
+        var nursesController = (function () {
+            function nursesController($http, $state) {
+                var _this = this;
+                this.$http = $http;
+                this.$state = $state;
+                this.editNurse = function (id) {
+                    console.log("preesdded");
+                    this.$state.go('edit', { id: id });
+                };
+                this.param = "Nurse";
+                this.$http.get('users/nurses/' + this.param).then(function (response) {
+                    console.log(response);
+                    _this.nurses = response.data;
+                }, function (err) {
+                    console.log(err.data);
+                });
+            }
+            return nursesController;
+        }());
+        Controllers.nursesController = nursesController;
+        var VisitListController = (function () {
+            function VisitListController($http, $state) {
+                var _this = this;
+                this.$http = $http;
+                this.$state = $state;
+                this.editVisit = function (id) {
+                    console.log("preesdded");
+                    this.$state.go('edit-visit', { id: id });
+                };
+                this.$http.get('/patientVisits').then(function (response) {
+                    _this.patientVisits = response.data;
+                });
+            }
+            return VisitListController;
+        }());
+        Controllers.VisitListController = VisitListController;
         var PatientVisitController = (function () {
             function PatientVisitController($http, $state) {
                 this.$http = $http;
@@ -26,8 +102,8 @@ var app;
             PatientVisitController.prototype.createVisit = function () {
                 var _this = this;
                 console.log("Saving...", this.patientVisit);
-                this.$http.post('/users/register', this.patientVisit).then(function (response) {
-                    _this.$state.go('home');
+                this.$http.post('/patientVisit/create', this.patientVisit).then(function (response) {
+                    _this.$state.go('patientVisits');
                 }, function (error) {
                     console.log("Registration failed:", error);
                 });
@@ -35,6 +111,28 @@ var app;
             return PatientVisitController;
         }());
         Controllers.PatientVisitController = PatientVisitController;
+        var RegisterController = (function () {
+            function RegisterController($http, $state) {
+                this.$http = $http;
+                this.$state = $state;
+            }
+            RegisterController.prototype.register = function () {
+                var _this = this;
+                console.log("registering...", this.user, " and cpassword is:", this.cpassword);
+                if (this.cpassword == this.user.password) {
+                    this.$http.post('/users/register', this.user).then(function (response) {
+                        _this.$state.go('home');
+                    }, function (error) {
+                        console.log("Registration failed:", error);
+                    });
+                }
+                else {
+                    alert("Passwords Do Not Match");
+                }
+            };
+            return RegisterController;
+        }());
+        Controllers.RegisterController = RegisterController;
         var LoginController = (function () {
             function LoginController($http, $state) {
                 this.$http = $http;

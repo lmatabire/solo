@@ -1,9 +1,11 @@
 "use strict";
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
+var patientVisit_1 = require("../models/patientVisit");
 var router = express.Router();
 router.get('/', function (req, res, next) {
-    PatientVisit.find().then(function (PatientVisits) {
+    patientVisit_1.default.find().then(function (patientVisits) {
         console.log('You have your hands in the cookie jar...');
         res.json(patientVisits);
     }).catch(function (err) {
@@ -11,7 +13,7 @@ router.get('/', function (req, res, next) {
     });
 });
 router.get('/:id', function (req, res, next) {
-    PatientVisit.findOne({ _id: req.params.id }).then(function (PatientVisit) {
+    patientVisit_1.default.findOne({ _id: req.params.id }).then(function (Patient) {
         console.log('');
         res.json(Patient);
     }).catch(function (err) {
@@ -19,21 +21,21 @@ router.get('/:id', function (req, res, next) {
     });
 });
 router.get('/doctors', function (req, res, next) {
-    PatientVisit.find({ role: req.params.role }).then(function (doctors) {
+    patientVisit_1.default.find({ role: req.params.role }).then(function (doctors) {
         res.json(doctors);
     }).catch(function (err) {
         res.json(err);
     });
 });
 router.get('/patients', function (req, res, next) {
-    PatientVisit.find({ role: req.params.role }).then(function (patients) {
+    patientVisit_1.default.find({ role: req.params.role }).then(function (patients) {
         res.json(patients);
     }).catch(function (err) {
         res.json(err);
     });
 });
-router.post('/register', function (req, res) {
-    var patientVisit = new PatientVisit();
+router.post('/create', function (req, res) {
+    var patientVisit = new patientVisit_1.default();
     patientVisit.userId = req.body.userId;
     patientVisit.location = req.body.location;
     patientVisit.date = req.body.date;
@@ -52,7 +54,7 @@ router.post('/register', function (req, res) {
     });
 });
 router.post('/update', function (req, res) {
-    PatientVisit.findOne({ _id: req.body._id }).then(function (visit) {
+    patientVisit_1.default.findOne({ _id: req.body._id }).then(function (patientVisit) {
         console.log("New Visit: ", req.body);
         patientVisit.userId = req.body.userId;
         patientVisit.location = req.body.location;
@@ -61,12 +63,12 @@ router.post('/update', function (req, res) {
         patientVisit.clinicalNotes = req.body.clinicalNotes;
         patientVisit.insuarence = req.body.insuarence;
         if (req.body.role) {
-            user.role = req.body.role;
+            _this.user.role = req.body.role;
         }
         if (req.body.occupation) {
-            user.occupation = req.body.occupation;
+            _this.user.occupation = req.body.occupation;
         }
-        user.save(function (err, newPatientVisit) {
+        patientVisit.save(function (err, newPatientVisit) {
             if (err) {
                 console.log(err);
             }
@@ -78,7 +80,7 @@ router.post('/update', function (req, res) {
     });
 });
 router.delete('/:id', function (req, res) {
-    PatientVisit.remove({ _id: req.params.id }).then(function (visit) {
+    patientVisit_1.default.remove({ _id: req.params.id }).then(function (visit) {
         console.log('You just deleted a visit', visit);
         res.json(visit);
     }).catch(function (err) {

@@ -21,16 +21,27 @@ router.get('/:id', function(req, res, next) {
     res.json(err)
   });
 });
-router.get('/doctors', function(req, res, next){
-  User.find({role: req.params.role}).then((doctors)=>{
-    res.json(doctors)
+router.get('/doctors/:role', function(req, res, next){
+
+  console.log('We hit doctors')
+  User.find({role: req.params.role}).then((users)=>{
+    res.json(users)
   }).catch((err)=>{
     res.json(err)
   });
 });
-router.get('/patients', function(req, res, next) {
-  User.find({role: req.params.role}).then((patients)=>{
-      res.json(patients)
+router.get('/nurses/:role', function(req, res, next){
+  console.log("We hit nurses")
+  User.find({role:req.params.role}).then((users)=>{
+    res.json(users)
+  }).catch((err)=>{
+    res.json(err)
+  });
+});
+router.get('/patients/:role', function(req, res, next) {
+  console.log('We hit the patients')
+  User.find({role: req.params.role}).then((users)=>{
+      res.json(users)
   }).catch((err)=>{
     res.json(err)
   });

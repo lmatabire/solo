@@ -1,0 +1,23 @@
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Edit Patient</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat='patient in controller.patients'>
+      <td>
+        <a ui-sref="about({id: user._id})">{{patient.username}}</a>
+      </td>
+      <td>
+        <span class="glyphicon glyphicon-envelope"></span> {{patient.email}}
+      </td>
+
+      <td>
+        <button type="button" ng-click="controller.editUser(patient._id)">Edit</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
