@@ -33,7 +33,7 @@ var app;
             controllerAs: 'controller'
         })
             .state('patientVisit', {
-            url: '/patientVisit/:id',
+            url: '/patientVisit',
             templateUrl: '/ngApp/views/patientVisit.html',
             controller: app.Controllers.PatientVisitController,
             controllerAs: 'controller'

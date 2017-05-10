@@ -87,8 +87,12 @@ var app;
                     console.log("preesdded");
                     this.$state.go('edit-visit', { id: id });
                 };
-                this.$http.get('/patientVisits').then(function (response) {
+                this.param = 'PatientVisit';
+                this.$http.get('/patientVisits/by_visit/' + this.param).then(function (response) {
+                    console.log(response);
                     _this.patientVisits = response.data;
+                }, function (err) {
+                    console.log(err.data);
                 });
             }
             return VisitListController;

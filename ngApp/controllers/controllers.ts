@@ -72,13 +72,20 @@ namespace app.Controllers {
   export class VisitListController {
     public patientVisits;
     public patientVisit;
+
     public editVisit = function(id){
+
       console.log("preesdded")
       this.$state.go('edit-visit', {id: id})
     }
+    public param = 'PatientVisit';
+
     constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
-      this.$http.get('/patientVisits').then((response) => {
+      this.$http.get('/patientVisits/by_visit/'+ this.param).then((response) => {
+        console.log(response)
         this.patientVisits = response.data
+      },(err)=>{
+        console.log(err.data)
       })
     }
   }
@@ -177,5 +184,4 @@ namespace app.Controllers {
                   })
                 }
   }
-
 }

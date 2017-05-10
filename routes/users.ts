@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
     res.json(err)
   });
 });
+
 /* GET users listing. */
 router.get('/:id', function(req, res, next) {
   User.findOne({_id:req.params.id}).then((user) => {
