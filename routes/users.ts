@@ -21,31 +21,16 @@ router.get('/:id', function(req, res, next) {
     res.json(err)
   });
 });
-router.get('/doctors/:role', function(req, res, next){
 
-  console.log('We hit doctors')
-  User.find({role: req.params.role}).then((users)=>{
-    res.json(users)
-  }).catch((err)=>{
-    res.json(err)
-  });
-});
-router.get('/nurses/:role', function(req, res, next){
-  console.log("We hit nurses")
+router.get('/by_role/:role', function(req, res, next){
+  console.log("getting by role")
   User.find({role:req.params.role}).then((users)=>{
     res.json(users)
   }).catch((err)=>{
     res.json(err)
   });
 });
-router.get('/patients/:role', function(req, res, next) {
-  console.log('We hit the patients')
-  User.find({role: req.params.role}).then((users)=>{
-      res.json(users)
-  }).catch((err)=>{
-    res.json(err)
-  });
-});
+
 router.post('/register', (req, res) => {
   let user: any = new User();
   user.username = req.body.username;

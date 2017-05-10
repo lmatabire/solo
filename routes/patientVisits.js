@@ -20,16 +20,16 @@ router.get('/:id', function (req, res, next) {
         res.json(err);
     });
 });
-router.get('/doctors', function (req, res, next) {
-    patientVisit_1.default.find({ role: req.params.role }).then(function (doctors) {
-        res.json(doctors);
+router.get('/for_patient', function (req, res, next) {
+    patientVisit_1.default.find({ userId: req.params._id }).then(function (patientVisits) {
+        res.json(patientVisits);
     }).catch(function (err) {
         res.json(err);
     });
 });
-router.get('/patients', function (req, res, next) {
-    patientVisit_1.default.find({ role: req.params.role }).then(function (patients) {
-        res.json(patients);
+router.get('/for_doctor', function (req, res, next) {
+    patientVisit_1.default.find({ doctorId: req.params._id }).then(function (patientVisits) {
+        res.json(patientVisits);
     }).catch(function (err) {
         res.json(err);
     });
@@ -41,7 +41,7 @@ router.post('/create', function (req, res) {
     patientVisit.date = req.body.date;
     patientVisit.primaryDiagnosis = req.body.primaryDiagnosis;
     patientVisit.clinicalNotes = req.body.clinicalNotes;
-    patientVisit.insuarence = req.body.insuarence;
+    patientVisit.insurance = req.body.insurance;
     patientVisit.setPassword(req.body.password);
     patientVisit.save(function (err, newPatientVisit) {
         if (err) {
@@ -57,11 +57,12 @@ router.post('/update', function (req, res) {
     patientVisit_1.default.findOne({ _id: req.body._id }).then(function (patientVisit) {
         console.log("New Visit: ", req.body);
         patientVisit.userId = req.body.userId;
+        patientVisit.doctorId = req.body.doctorId;
         patientVisit.location = req.body.location;
         patientVisit.date = req.body.date;
         patientVisit.primaryDiagnosis = req.body.primaryDiagnosis;
         patientVisit.clinicalNotes = req.body.clinicalNotes;
-        patientVisit.insuarence = req.body.insuarence;
+        patientVisit.insurance = req.body.insurance;
         if (req.body.role) {
             _this.user.role = req.body.role;
         }

@@ -7,6 +7,24 @@
   <p>
       <input type="email" placeholder="Email" ng-model="controller.user.email" required/>
   </p>
+  <p>
+      <input type="text" placeholder="First Name" ng-model="controller.user.firstName" required/>
+  </p>
+  <p>
+      <input type="text" placeholder="Last Name" ng-model="controller.user.lastName" required/>
+  </p>
+  <p>
+      <input type="text" placeholder="Address" ng-model="controller.user.address" required/>
+  </p>
+  <p>
+      <input type="number" placeholder="Zip Code" ng-model="controller.user.zipCode" required/>
+  </p>
+  <p>
+      <input type="text" placeholder="State" ng-model="controller.user.state" required/>
+    </p>
+  <p>
+      <input type="text" placeholder="Diagnosis" ng-model="controller.user.diagnosis" required/>
+    </p>
   <label>Role</label>
   <p>
       <select placeholder="Role of User" ng-model="controller.user.role" required>
@@ -16,5 +34,5 @@
             <option>Other</option>
       </select>
   </p>
-  <input type="submit" value="editUser" class="btn btn-primary" />
+  <input type="submit" value="save" class="btn btn-primary" />
 </form>

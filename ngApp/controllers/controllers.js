@@ -28,7 +28,7 @@ var app;
                     this.$state.go('edit', { id: id });
                 };
                 this.param = "Doctor";
-                this.$http.get('users/doctors/' + this.param).then(function (response) {
+                this.$http.get('users/by_role/' + this.param).then(function (response) {
                     console.log(response);
                     _this.doctors = response.data;
                 }, function (err) {
@@ -48,7 +48,7 @@ var app;
                     this.$state.go('edit', { id: id });
                 };
                 this.param = 'Patient';
-                this.$http.get('users/patients/' + this.param).then(function (response) {
+                this.$http.get('users/by_role/' + this.param).then(function (response) {
                     console.log(response);
                     _this.patients = response.data;
                 }, function (err) {
@@ -68,7 +68,7 @@ var app;
                     this.$state.go('edit', { id: id });
                 };
                 this.param = "Nurse";
-                this.$http.get('users/nurses/' + this.param).then(function (response) {
+                this.$http.get('users/by_role/' + this.param).then(function (response) {
                     console.log(response);
                     _this.nurses = response.data;
                 }, function (err) {

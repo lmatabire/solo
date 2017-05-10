@@ -1,24 +1,30 @@
 <table class='table table-bordered table-striped'>
   <thead>
     <tr>
-      <th>Id</>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Edit User</th>
+      <th>User<th/>
+      <th>Doctor</th>
+      <th>Location</th>
+      <th>Date</th>
+      <th>clinical Notes</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat='user in controller.users'>
-    <td>{{user._id}}</td>
+    <tr ng-repeat='user in controller.user'>
+    <td>{{user.username}}</td>
       <td>
-        <a ui-sref="about({id: user._id})">{{user.username}}</a>
+        <a ui-sref="about({id: user._id})">{{user.doctorId}}</a>
       </td>
       <td>
-        <span class="glyphicon glyphicon-envelope"></span> {{user.email}}
+        <span class="glyphicon glyphicon-globe"></span> {{user.location}}
       </td>
       <td>
-        {{user.role}}
+        {{user.date}}
+      </td>
+      <td>
+        {{user.clinicalNotes}}
+      </td>
+      <td>
+        {{user.primaryDiagnosis}}
       </td>
       <td>
         <button type="button" ng-click="controller.editUser(user._id)">Edit</a>

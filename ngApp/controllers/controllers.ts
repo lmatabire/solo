@@ -23,7 +23,7 @@ namespace app.Controllers {
     }
     public param = "Doctor";
     constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
-      this.$http.get('users/doctors/'+ this.param).then((response) => {
+      this.$http.get('users/by_role/'+ this.param).then((response) => {
         console.log(response)
         this.doctors = response.data
       }, (err)=>{
@@ -41,7 +41,7 @@ namespace app.Controllers {
     }
     public param ='Patient';
     constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
-      this.$http.get('users/patients/'+ this.param).then((response) => {
+      this.$http.get('users/by_role/'+ this.param).then((response) => {
         console.log(response)
         this.patients = response.data
       }, (err)=>{
@@ -59,7 +59,7 @@ namespace app.Controllers {
     }
     public param = "Nurse";
     constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
-      this.$http.get('users/nurses/'+this.param).then((response) => {
+      this.$http.get('users/by_role/'+this.param).then((response) => {
         console.log(response);
 
         this.nurses = response.data

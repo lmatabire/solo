@@ -1,9 +1,33 @@
-<h2>About User</h2>
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th>First Name</th>
+        <th>Last Name</th>
+        <th>Notes</th>
+        <th>Date</th>
+        <th>Doctor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat='user in controller.user'>
+      <td>
+        {{controller.user.firstName}}
+      </td>
+      <td>
+        {{controller.user.lastName}}
+      </td>
+      <td>
+        {{controller.user.clinicalNotes}}
+      </td>
+      <td>
+        {{controller.user.date}}
+      </td>
+      <td>
+        <a ui-sref="about({id: user._id})">{{controller.user.doctorId}}</a>
+      </td>
 
-<tr class="active">{{user.username}}</tr>
-<tr class="success">{{user.email}}</tr>
-<tr class="warning">{{user.role}}</tr>
+      <a ui-sref="home">Back</a>
 
-<a ui-sref='home'>Back to Users</a>
-
-<button class='btn btn-danger' ng-click='controller.deleteUser()'>Delete User</button>
+    </tr> <br />
+</tbody>
+</table>

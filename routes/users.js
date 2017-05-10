@@ -20,24 +20,8 @@ router.get('/:id', function (req, res, next) {
         res.json(err);
     });
 });
-router.get('/doctors/:role', function (req, res, next) {
-    console.log('We hit doctors');
-    user_1.default.find({ role: req.params.role }).then(function (users) {
-        res.json(users);
-    }).catch(function (err) {
-        res.json(err);
-    });
-});
-router.get('/nurses/:role', function (req, res, next) {
-    console.log("We hit nurses");
-    user_1.default.find({ role: req.params.role }).then(function (users) {
-        res.json(users);
-    }).catch(function (err) {
-        res.json(err);
-    });
-});
-router.get('/patients/:role', function (req, res, next) {
-    console.log('We hit the patients');
+router.get('/by_role/:role', function (req, res, next) {
+    console.log("getting by role");
     user_1.default.find({ role: req.params.role }).then(function (users) {
         res.json(users);
     }).catch(function (err) {
