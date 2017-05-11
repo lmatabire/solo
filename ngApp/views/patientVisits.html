@@ -9,8 +9,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat='user in controller.user'>
-    <td>{{user.username}}</td>
+    <tr ng-repeat='user in controller.PatientVisit'>
+    <td>{{user.userId}}</td>
       <td>
         <a ui-sref="about({id: user._id})">{{user.doctorId}}</a>
       </td>
