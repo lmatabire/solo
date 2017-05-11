@@ -4,7 +4,7 @@ namespace app.Controllers {
     public users;
     public user;
     public editUser = function(id){
-      console.log("preesdded")
+      console.log("preesdded");
       this.$state.go('edit', {id: id})
     }
     constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
@@ -18,7 +18,7 @@ namespace app.Controllers {
     public doctor;
 
     public editDoctor = function(id){
-      console.log("preesdded")
+      console.log("preesdded");
       this.$state.go('edit', {id: id})
     }
     public param = "Doctor";
@@ -52,11 +52,10 @@ namespace app.Controllers {
   export class nursesController {
     public nurses;
     public nurse;
-
     public editNurse = function(id){
-      console.log("preesdded")
+      console.log("preesdded");
       this.$state.go('edit', {id: id})
-    }
+    };
     public param = "Nurse";
     constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
       this.$http.get('users/by_role/'+this.param).then((response) => {
@@ -68,21 +67,35 @@ namespace app.Controllers {
       })
     }
   }
-
   export class VisitListController {
     public patientVisits;
-    public patientVisit;
+    public visit;
 
-    public editVisit = function(id){
+    public open = function (visit) {
+      this.$uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title-top',
+        ariaDescribedBy: 'modal-body-top',
+        templateUrl: 'ngApp/views/edit-visit.html',
+        size: 'lg',
+        controller: function ($scope,$http) {
+          $scope.visit = visit;
+          $scope.update = function(){
+            console.log("Saving...", this.visit);
+            $http.post('/appointments/update', this.visit).then((response) => {
+              this.$state.go('patientVisits');
+            },(error) => {
+              //error caught
+              console.log("Update failed:", error)
+            })
+          };
+        }
+      });
+    };
 
-      console.log("preesdded")
-      this.$state.go('edit-visit', {id: id})
-    }
-    public param = 'PatientVisit';
-
-    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
-      this.$http.get('/patientVisits/by_visit/'+ this.param).then((response) => {
-        console.log(response)
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private $uibModal: ng.ui.bootstrap.IModalService) {
+      this.$http.get('/appointments/').then((response) => {
+        console.log(response);
         this.patientVisits = response.data
       },(err)=>{
         console.log(err.data)
@@ -91,10 +104,11 @@ namespace app.Controllers {
   }
   export class PatientVisitController {
     public patientVisit;
-
+    public users;
+    public doctors;
     public createVisit() {
       console.log("Saving...", this.patientVisit);
-        this.$http.post('/patientVisit/create', this.patientVisit).then((response) => {
+        this.$http.post('/appointments/create', this.patientVisit).then((response) => {
           this.$state.go('patientVisits');
         },(error) => {
           //error caught
@@ -102,11 +116,17 @@ namespace app.Controllers {
         })
       }
     constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+      this.$http.get('/users').then((response) => {
+        this.users = response.data
+      });
+      this.$http.get('/users/by_role/Doctor').then((response) => {
+        this.doctors = response.data
+      })
     }
   }
   export class RegisterController {
   public user;
-  public cpassword
+  public cpassword;
   public register() {
     console.log("registering...",this.user," and cpassword is:",this.cpassword);
     if(this.cpassword == this.user.password){
@@ -132,7 +152,7 @@ namespace app.Controllers {
       console.log("loging in...", this.user);
       this.$http.post('/users/login', this.user).then((response) => {
         let token = response.data;
-        console.log("token is:", token)
+        console.log("token is:", token);
         this.$state.go('home');
       }, (error) => {
         //error caught
@@ -165,7 +185,6 @@ namespace app.Controllers {
       })
     }
   }
-
   export class AboutController {
     public user;
 

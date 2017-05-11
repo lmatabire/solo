@@ -47,7 +47,35 @@ router.post('/update', function (req, res) {
     user_1.default.findOne({ _id: req.body._id }).then(function (user) {
         console.log("New Data: ", req.body);
         user.username = req.body.username;
-        user.email = req.body.email;
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        if (req.body.phone) {
+            user.phone = req.body.phone;
+        }
+        if (req.body.address) {
+            user.address = req.body.address;
+        }
+        if (req.body.sex) {
+            user.sex = req.body.sex;
+        }
+        if (req.body.state) {
+            user.state = req.body.state;
+        }
+        if (req.body.pastIllnesses) {
+            user.pastIllnesses = req.body.pastIllnesses;
+        }
+        if (req.body.country) {
+            user.country = req.body.country;
+        }
+        if (req.body.title) {
+            user.title = req.body.title;
+        }
+        if (req.body.zipCode) {
+            user.zipCode = req.body.zipCode;
+        }
+        if (req.body.birthday) {
+            user.birthday = req.body.birthday;
+        }
         if (req.body.role) {
             user.role = req.body.role;
         }

@@ -1,24 +1,104 @@
 <form ng-submit='controller.createVisit()'>
-  <h3>Patient</h3>
+<div class="row">
+     <div class="col-lg-6">
 
-  <h3>Location</h3>
-  <select placeholder="Location of Patient" ng-model="controller.patientVisit.location" required>
-      <option>Inpatient</option>
-      <option>Outpatient</option>
-  </select>
-  <h3>Insurance</h3>
-  <select placeholder="Location of Patient" ng-model="controller.patientVisit.insurance" required>
-      <option>BlueCross</option>
-      <option>Aetna</option>
-      <option>Humana</option>
-      <option>Cigna</option>
-      <option>Molina HealthCare</option>
-  </select>
-<h3></h3>
-<h3>Clinical Note</h3>
-<textarea name="comments" id="comments" style="font-family:sans-serif;font-size:1.2em;">
-</textarea> <br />
+         <div class="input-group">
+            <label for="patient">Patient:</label>
+            <input id="patient"
+                   placeholder="Patient"
+                   type="text"
+                   class="form-control"
+                   ng-model="controller.patientVisit.patient"
+                   uib-typeahead="user as user.username for user in controller.users | filter:{username:$viewValue} | limitTo:20"/>
+         </div>
+
+         <div class="input-group">
+             <label>Email:</label>
+             <br>
+             <input class="form-control" type="text" ng-value="controller.patientVisit.patient.email" disabled/>
+         </div>
+         <br>
+         <div class="input-group">
+             <label>Username:</label>
+             <br>
+             <input class="form-control" type="text" ng-value="controller.patientVisit.patient.username" disabled>
+         </div>
+         <br>
+         <div class="input-group">
+             <label for="patienttype">Location:</label>
+            <select id="patienttype" class="form-control" ng-model="controller.patientVisit.location" required>
+                <option>Inpatient</option>
+                <option>Outpatient</option>
+            </select>
+         </div>
+<br>
+         <div class="input-group">
+            <label for="insurance">Insurance:</label>
+            <select class="form-control" id="insurance" ng-model="controller.patientVisit.insurance" required>
+                <option>BlueCross</option>
+                <option>Aetna</option>
+                <option>Humana</option>
+                <option>Cigna</option>
+                <option>Molina HealthCare</option>
+                <option>None</option>
+            </select>
+         </div>
+         <div class="input-group">
+             <label for="comments">Clinical Note:</label>
+             <br>
+             <textarea name="comments" class="form-control" ng-model="controller.patientVisit.clinicalNotes" maxlength="200" cols="50" rows="15" id="comments" style="font-family:sans-serif;font-size:1.2em;">
+            </textarea>
+         </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="input-group">
+            <label for="doctor">Doctor:</label>
+            <input id="doctor"
+                   placeholder="Doctor"
+                   type="text"
+                   ng-model="controller.patientVisit.doctor"
+                   uib-typeahead="user as user.username for user in controller.doctors | filter:{username:$viewValue}"
+                   class="form-control"
+                   uib-typeahead-show-hint="true"
+                   uib-typeahead-min-length="0"/>
+        </div>
+        <br>
+        <div class="input-group case-types">
+            <label> Case Type:</label>
+
+
+            <div class="input-group">
+                <label> Acute:
+                <input type="radio" value="Acute" class="checkbox-inline" ng-model="controller.patientVisit.caseType" />
+                </label>
+            </div>
+
+            <div class="input-group">
+                <label> Chronic:
+                <input type="radio" value="Chronic" class="checkbox-inline" ng-model="controller.patientVisit.caseType" />
+                </label>
+            </div>
+            <div class="input-group">
+                <label> Pre-Existing:
+                <input type="radio" value="Pre-Existing" class="checkbox-inline" ng-model="controller.patientVisit.caseType" />
+                </label>
+            </div>
+            <div class="input-group">
+                <label> Injury:
+                <input type="radio" value="Injury" class="checkbox-inline" ng-model="controller.patientVisit.caseType" />
+                </label>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="diag">Diagnosis:</label>
+            <br>
+            <textarea class="form-control" name="diag" ng-model="controller.patientVisit.primaryDiagnosis" maxlength="200" cols="50" rows="15" id="diag" style="font-family:sans-serif;font-size:1.2em;">
+            </textarea>
+        </div>
+    </div>
+</div>
+    <br/>
 <button type="reset" class="btn btn-danger" > Reset </button>
-<input type="submit" value="Edit Patient Visit" class="btn btn-primary" />
+    <button type="submit" class="btn btn-primary">Add Visit</button>
 
 </form>

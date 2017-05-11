@@ -20,7 +20,7 @@ mongoose.connect(CONNECTION_STRING).then(()=>{
   console.log('Got your hand in the cookie jar..')
 }).catch ((err)=>{
   console.log(err.message)
-})
+});
 
 let app = express();
 
@@ -41,6 +41,7 @@ app.use('/api', express.static(path.join(__dirname, 'api')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/appointments', patientVisits);
 
 
 // redirect 404 to home for the sake of AngularJS client-side routes

@@ -79,16 +79,33 @@ var app;
         }());
         Controllers.nursesController = nursesController;
         var VisitListController = (function () {
-            function VisitListController($http, $state) {
+            function VisitListController($http, $state, $uibModal) {
                 var _this = this;
                 this.$http = $http;
                 this.$state = $state;
-                this.editVisit = function (id) {
-                    console.log("preesdded");
-                    this.$state.go('edit-visit', { id: id });
+                this.$uibModal = $uibModal;
+                this.open = function (visit) {
+                    this.$uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title-top',
+                        ariaDescribedBy: 'modal-body-top',
+                        templateUrl: 'ngApp/views/edit-visit.html',
+                        size: 'lg',
+                        controller: function ($scope, $http) {
+                            $scope.visit = visit;
+                            $scope.update = function () {
+                                var _this = this;
+                                console.log("Saving...", this.visit);
+                                $http.post('/appointments/update', this.visit).then(function (response) {
+                                    _this.$state.go('patientVisits');
+                                }, function (error) {
+                                    console.log("Update failed:", error);
+                                });
+                            };
+                        }
+                    });
                 };
-                this.param = 'PatientVisit';
-                this.$http.get('/patientVisits/by_visit/' + this.param).then(function (response) {
+                this.$http.get('/appointments/').then(function (response) {
                     console.log(response);
                     _this.patientVisits = response.data;
                 }, function (err) {
@@ -100,13 +117,20 @@ var app;
         Controllers.VisitListController = VisitListController;
         var PatientVisitController = (function () {
             function PatientVisitController($http, $state) {
+                var _this = this;
                 this.$http = $http;
                 this.$state = $state;
+                this.$http.get('/users').then(function (response) {
+                    _this.users = response.data;
+                });
+                this.$http.get('/users/by_role/Doctor').then(function (response) {
+                    _this.doctors = response.data;
+                });
             }
             PatientVisitController.prototype.createVisit = function () {
                 var _this = this;
                 console.log("Saving...", this.patientVisit);
-                this.$http.post('/patientVisit/create', this.patientVisit).then(function (response) {
+                this.$http.post('/appointments/create', this.patientVisit).then(function (response) {
                     _this.$state.go('patientVisits');
                 }, function (error) {
                     console.log("Registration failed:", error);

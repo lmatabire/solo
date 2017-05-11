@@ -12,10 +12,17 @@
   <div class="container">
         <h1>Hospital App</h1>
         <nav class="navbar navbar-inverse">
-          <a href="/">Home</a> |
-          <a href="/login">Login</a> |
-          <a href="/register">Register</a> |
-          <a href="/edit/:id">Profile</a>
+            <a ui-sref="home">Home</a> |
+            <a ui-sref="doctors">Doctors</a> |
+            <a ui-sref="nurses">Nurses</a> |
+            <a ui-sref="patients">Patients</a> |
+            <a ui-sref="patientVisits">Visits</a> |
+            <a ui-sref="patientVisit">New Visit <i class="glyphicon glyphicon-plus"></i></a>
+            <div class="pull-right">
+                <a ui-sref="edit">Profile</a> |
+                <a ui-sref="login">Login</a> |
+                <a ui-sref="register">Register</a>
+            </div>
         </nav>
 
 
