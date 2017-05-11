@@ -3,31 +3,66 @@
     <tr>
       <th>First Name</th>
         <th>Last Name</th>
-        <th>Notes</th>
-        <th>Date</th>
-        <th>Doctor</th>
+        <th>Role</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat='user in controller.user'>
+    <tr>
       <td>
         {{controller.user.firstName}}
       </td>
       <td>
         {{controller.user.lastName}}
       </td>
+
       <td>
-        {{controller.user.clinicalNotes}}
-      </td>
-      <td>
-        {{controller.user.date}}
-      </td>
-      <td>
-        <a ui-sref="about({id: user._id})">{{controller.user.doctorId}}</a>
+        <a ui-sref="about({id: user._id})">{{controller.user.role}}</a>
       </td>
 
       <a ui-sref="home">Back</a>
 
     </tr> <br />
 </tbody>
+</table>
+
+<table class='table table-bordered table-striped'>
+  <thead>
+  <tr>
+    <th>User</th>
+    <th>Doctor</th>
+    <th>Location</th>
+    <th>Date</th>
+    <th>clinical Notes</th>
+    <th>Primary Diagnosis</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat='visit in controller.visits'>
+    <td>{{visit.patient.username}}</td>
+    <td>
+      <a ui-sref="about({id: user._id})">Dr {{visit.doctor.username}}</a>
+    </td>
+    <td>
+      <span class="glyphicon glyphicon-globe"></span> {{visit.location}}
+    </td>
+    <td>
+      {{visit.date | date}}
+    </td>
+    <td>
+      {{visit.clinicalNotes}}
+    </td>
+    <td>
+      {{visit.primaryDiagnosis}}
+    </td>
+    <td>
+      <!--<button type="button" ng-click="controller.editUser(visit)">View</button>-->
+      <button type="button"
+              class="btn btn-default"
+              ng-click="controller.open(visit)">
+        View Visit
+      </button>
+    </td>
+  </tr>
+  </tbody>
 </table>

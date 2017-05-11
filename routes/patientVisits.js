@@ -1,5 +1,4 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var patientVisit_1 = require("../models/patientVisit");
@@ -20,8 +19,9 @@ router.get('/:id', function (req, res, next) {
         res.json(err);
     });
 });
-router.get('/for_patient', function (req, res, next) {
-    patientVisit_1.default.find({ userId: req.params._id }).then(function (patientVisits) {
+router.post('/for_patient', function (req, res, next) {
+    console.log(req.body);
+    patientVisit_1.default.find({ "patient._id": req.body._id }).then(function (patientVisits) {
         res.json(patientVisits);
     }).catch(function (err) {
         res.json(err);
@@ -35,14 +35,9 @@ router.get('/for_doctor', function (req, res, next) {
     });
 });
 router.post('/create', function (req, res) {
-    var patientVisit = new patientVisit_1.default();
-    patientVisit.userId = req.body.userId;
-    patientVisit.location = req.body.location;
-    patientVisit.date = req.body.date;
-    patientVisit.primaryDiagnosis = req.body.primaryDiagnosis;
-    patientVisit.clinicalNotes = req.body.clinicalNotes;
-    patientVisit.insurance = req.body.insurance;
-    patientVisit.setPassword(req.body.password);
+    console.log("New Visit: ", req.body);
+    var patientVisit = new patientVisit_1.default(req.body);
+    patientVisit.date = new Date();
     patientVisit.save(function (err, newPatientVisit) {
         if (err) {
             console.log(err);
@@ -56,19 +51,7 @@ router.post('/create', function (req, res) {
 router.post('/update', function (req, res) {
     patientVisit_1.default.findOne({ _id: req.body._id }).then(function (patientVisit) {
         console.log("New Visit: ", req.body);
-        patientVisit.userId = req.body.userId;
-        patientVisit.doctorId = req.body.doctorId;
-        patientVisit.location = req.body.location;
-        patientVisit.date = req.body.date;
-        patientVisit.primaryDiagnosis = req.body.primaryDiagnosis;
-        patientVisit.clinicalNotes = req.body.clinicalNotes;
-        patientVisit.insurance = req.body.insurance;
-        if (req.body.role) {
-            _this.user.role = req.body.role;
-        }
-        if (req.body.occupation) {
-            _this.user.occupation = req.body.occupation;
-        }
+        patientVisit = req.body;
         patientVisit.save(function (err, newPatientVisit) {
             if (err) {
                 console.log(err);

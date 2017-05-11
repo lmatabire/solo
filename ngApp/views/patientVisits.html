@@ -6,28 +6,35 @@
       <th>Location</th>
       <th>Date</th>
       <th>clinical Notes</th>
+      <th>Primary Diagnosis</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat='user in controller.PatientVisit'>
-    <td>{{user.userId}}</td>
+    <tr ng-repeat='visit in controller.patientVisits'>
+    <td>{{visit.patient.username}}</td>
       <td>
-        <a ui-sref="about({id: user._id})">{{user.doctorId}}</a>
+        <a ui-sref="about({id: user._id})">Dr {{visit.doctor.username}}</a>
       </td>
       <td>
-        <span class="glyphicon glyphicon-globe"></span> {{user.location}}
+        <span class="glyphicon glyphicon-globe"></span> {{visit.location}}
       </td>
       <td>
-        {{user.date}}
+        {{visit.date | date}}
       </td>
       <td>
-        {{user.clinicalNotes}}
+        {{visit.clinicalNotes}}
       </td>
       <td>
-        {{user.primaryDiagnosis}}
+        {{visit.primaryDiagnosis}}
       </td>
       <td>
-        <button type="button" ng-click="controller.editUser(user._id)">Edit</a>
+        <!--<button type="button" ng-click="controller.editUser(visit)">View</button>-->
+        <button type="button"
+                class="btn btn-default"
+                ng-click="controller.open(visit)">
+          View Visit
+        </button>
       </td>
     </tr>
   </tbody>

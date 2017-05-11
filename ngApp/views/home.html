@@ -10,7 +10,7 @@
   <tbody>
     <tr ng-repeat='user in controller.users'>
       <td>
-        <a ui-sref="about({id: user._id})">{{user.username}}</a>
+        <a ng-click="controller.getUser(user)">{{user.username}}</a>
       </td>
       <td>
         <span class="glyphicon glyphicon-envelope"></span> {{user.email}}
@@ -19,7 +19,7 @@
         {{user.role}}
       </td>
       <td>
-        <button type="button" ng-click="controller.editUser(user._id)">Edit</a>
+        <button type="button" ng-click="controller.editUser(user._id)">Edit</button>
       </td>
     </tr>
   </tbody>

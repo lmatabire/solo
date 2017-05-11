@@ -3,7 +3,7 @@ import crypto = require('crypto');
 import jwt = require("jsonwebtoken");
 
 let UserSchema = new mongoose.Schema({
-  username: { type: String, lowercase: true, unique: true},
+  username: { type: String, unique: true},
   email: { type: String, unique: true, lowercase: true },
   firstName: String,
   lastName: String,
@@ -11,15 +11,16 @@ let UserSchema = new mongoose.Schema({
   zipCode: Number,
   state: String,
   country: String,
+  phone:String,
   occupation:String,
   title: String,
   role: String,
-  diagnosis: String,
+  pastIllnesses: String,
   passwordHash: String,
   salt: String,
   sex: String,
   birthday: Date
-})
+}); 
 
 UserSchema.method('setPassword', function(password) {
   this.salt = crypto.randomBytes(16).toString('hex');

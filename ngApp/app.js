@@ -65,7 +65,7 @@ var app;
             .state('patientVisits', {
             url: '/patientVisits',
             templateUrl: '/ngApp/views/patientVisits.html',
-            controller: app.Controllers.PatientVisitController,
+            controller: app.Controllers.VisitListController,
             controllerAs: 'controller'
         })
             .state('notFound', {

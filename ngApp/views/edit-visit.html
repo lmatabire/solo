@@ -1,0 +1,102 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Patient Visit on {{visit.date| date}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+<form ng-submit='update()'>
+    <div class="row">
+        <div class="col-lg-6">
+
+            <div class="input-group">
+                <label>First Name:</label>
+                <br>
+                <input class="form-control" type="text" ng-value="visit.patient.firstName" disabled>
+            </div>
+            <div class="input-group">
+                <label>Last Name:</label>
+                <br>
+                <input class="form-control" type="text" ng-value="visit.patient.lastName" disabled>
+            </div>
+
+            <div class="input-group">
+                <label>Email:</label>
+                <br>
+                <input class="form-control" type="text" ng-value="visit.patient.email" disabled/>
+            </div>
+
+            <div class="input-group">
+                <label>Phone:</label>
+                <br>
+                <input class="form-control" type="text" ng-value="visit.patient.phone" disabled/>
+            </div>
+            <br>
+            <div class="input-group">
+                <label for="patienttype">Location:</label>
+                <select id="patienttype" class="form-control" ng-model="visit.location" required>
+                    <option>Inpatient</option>
+                    <option>Outpatient</option>
+                </select>
+            </div>
+            <br>
+            <div class="input-group">
+                <label for="insurance">Insurance:</label>
+                <select class="form-control" id="insurance" ng-model="visit.insurance" required>
+                    <option>BlueCross</option>
+                    <option>Aetna</option>
+                    <option>Humana</option>
+                    <option>Cigna</option>
+                    <option>Molina HealthCare</option>
+                    <option>None</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="comments">Clinical Note:</label>
+                <br>
+                <textarea name="comments" class="form-control" ng-model="visit.clinicalNotes" maxlength="200" cols="50" rows="15" id="comments" style="font-family:sans-serif;font-size:1.2em;">
+            </textarea>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <label for="doctor">Doctor:</label>
+              <input id="doctor" type="text" ng-value="visit.doctor.username">
+            </div>
+            <div class="input-group case-types">
+                <label> Case Type:</label>
+
+
+                <div class="input-group">
+                    <label> Acute:
+                        <input type="radio" value="Acute" class="checkbox-inline" ng-model="visit.caseType" />
+                    </label>
+                </div>
+
+                <div class="input-group">
+                    <label> Chronic:
+                        <input type="radio" value="Chronic" class="checkbox-inline" ng-model="visit.caseType" />
+                    </label>
+                </div>
+                <div class="input-group">
+                    <label> Pre-Existing:
+                        <input type="radio" value="Pre-Existing" class="checkbox-inline" ng-model="visit.caseType" />
+                    </label>
+                </div>
+                <div class="input-group">
+                    <label> Injury:
+                        <input type="radio" value="Injury" class="checkbox-inline" ng-model="visit.caseType" />
+                    </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="diag">Diagnosis:</label>
+                <br>
+                <textarea class="form-control" name="diag" ng-model="visit.primaryDiagnosis" maxlength="200" cols="50" rows="15" id="diag" style="font-family:sans-serif;font-size:1.2em;">
+            </textarea>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-primary">Update Appointment</button>
+</form>
+</div>
+<div class="modal-footer">
+</div>
