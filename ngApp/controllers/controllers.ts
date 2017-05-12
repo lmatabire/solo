@@ -157,13 +157,14 @@ namespace app.Controllers {
       this.$http.post('/users/login', this.user).then((response) => {
         let token = response.data;
         console.log("token is:", token);
+        this.$window.localStorage.setItem("token",token);
         this.$state.go('home');
       }, (error) => {
         //error caught
         console.log("login failed:", error)
       })
     }
-    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private $window) {
 
     }
   }
@@ -198,10 +199,31 @@ namespace app.Controllers {
         this.$state.go('home');
       });
     }
+    public open = function (visit) {
+      this.$uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title-top',
+        ariaDescribedBy: 'modal-body-top',
+        templateUrl: 'ngApp/views/edit-visit.html',
+        size: 'lg',
+        controller: function ($scope,$http) {
+          $scope.visit = visit;
+          $scope.update = function(){
+            console.log("Saving...", this.visit);
+            $http.post('/appointments/update', this.visit).then((response) => {
+              this.$state.go('patientVisits');
+            },(error) => {
+              //error caught
+              console.log("Update failed:", error)
+            })
+          };
+        }
+      });
+    };
 
     constructor(private $http: ng.IHttpService,
                 private $stateParams: ng.ui.IStateParamsService,
-                private $state: ng.ui.IStateService) {
+                private $state: ng.ui.IStateService,private $uibModal: ng.ui.bootstrap.IModalService) {
       this.$http.get('/users/'+this.$stateParams['id']).then((response) => {
        // console.log(response.data);
         this.user = response.data;

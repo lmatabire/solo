@@ -47,6 +47,7 @@ router.post('/register', (req, res) => {
 
   });
 });
+
 router.post('/update', (req, res) => {
     User.findOne({_id:req.body._id}).then((user) => {
       console.log("New Data: ",req.body);
@@ -96,6 +97,7 @@ router.post('/update', (req, res) => {
   });
 })
 });
+
 router.delete('/:id',(req, res)=>{
   User.remove({_id: req.params.id}).then((user)=>{
     console.log('You just deleted a user', user);
@@ -104,6 +106,7 @@ router.delete('/:id',(req, res)=>{
     res.json(err)
   })
 });
+
 router.post('/login', (req, res, next) => {
   if (!req.body.username || !req.body.password) {
     res.status(400).json({ message: "Please fill in all fields." });

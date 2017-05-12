@@ -165,9 +165,10 @@ var app;
         }());
         Controllers.RegisterController = RegisterController;
         var LoginController = (function () {
-            function LoginController($http, $state) {
+            function LoginController($http, $state, $window) {
                 this.$http = $http;
                 this.$state = $state;
+                this.$window = $window;
             }
             LoginController.prototype.login = function () {
                 var _this = this;
@@ -175,6 +176,7 @@ var app;
                 this.$http.post('/users/login', this.user).then(function (response) {
                     var token = response.data;
                     console.log("token is:", token);
+                    _this.$window.localStorage.setItem("token", token);
                     _this.$state.go('home');
                 }, function (error) {
                     console.log("login failed:", error);
@@ -209,11 +211,33 @@ var app;
         }());
         Controllers.EditUserController = EditUserController;
         var AboutController = (function () {
-            function AboutController($http, $stateParams, $state) {
+            function AboutController($http, $stateParams, $state, $uibModal) {
                 var _this = this;
                 this.$http = $http;
                 this.$stateParams = $stateParams;
                 this.$state = $state;
+                this.$uibModal = $uibModal;
+                this.open = function (visit) {
+                    this.$uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title-top',
+                        ariaDescribedBy: 'modal-body-top',
+                        templateUrl: 'ngApp/views/edit-visit.html',
+                        size: 'lg',
+                        controller: function ($scope, $http) {
+                            $scope.visit = visit;
+                            $scope.update = function () {
+                                var _this = this;
+                                console.log("Saving...", this.visit);
+                                $http.post('/appointments/update', this.visit).then(function (response) {
+                                    _this.$state.go('patientVisits');
+                                }, function (error) {
+                                    console.log("Update failed:", error);
+                                });
+                            };
+                        }
+                    });
+                };
                 this.$http.get('/users/' + this.$stateParams['id']).then(function (response) {
                     _this.user = response.data;
                     _this.$http.post('/appointments/for_patient/', _this.user).then(function (response) {
