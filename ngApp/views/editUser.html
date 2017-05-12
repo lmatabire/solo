@@ -1,38 +1,74 @@
 <form ng-submit='controller.editUser()'>
-  <label>User</label>
-  <p>
-      <input type="text" placeholder="Username" ng-model="controller.user.username" required/>
-  </p>
-  <label>Email</label>
-  <p>
-      <input type="email" placeholder="Email" ng-model="controller.user.email" required/>
-  </p>
-  <p>
-      <input type="text" placeholder="First Name" ng-model="controller.user.firstName" required/>
-  </p>
-  <p>
-      <input type="text" placeholder="Last Name" ng-model="controller.user.lastName" required/>
-  </p>
-  <p>
-      <input type="text" placeholder="Address" ng-model="controller.user.address" required/>
-  </p>
-  <p>
-      <input type="number" placeholder="Zip Code" ng-model="controller.user.zipCode" required/>
-  </p>
-  <p>
-      <input type="text" placeholder="State" ng-model="controller.user.state" required/>
-    </p>
-  <p>
-      <input type="text" placeholder="Diagnosis" ng-model="controller.user.diagnosis" required/>
-    </p>
-  <label>Role</label>
-  <p>
-      <select placeholder="Role of User" ng-model="controller.user.role" required>
-          <option>Patient</option>
-          <option>Doctor</option>
-          <option>Nurse</option>
-            <option>Other</option>
-      </select>
-  </p>
-  <input type="submit" value="save" class="btn btn-primary" />
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="input-group">
+            <label>Title</label>
+                <select class="form-control" ng-model="controller.user.title" required>
+                    <option>Mr</option>
+                    <option>Mrs</option>
+                    <option>Miss</option>
+                    <option>Doctor</option>
+                    <option>Professor</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" class="form-control" placeholder="Username" ng-model="controller.user.username" disabled/>
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input class="form-control" type="email" placeholder="Email" ng-model="controller.user.email" disabled/>
+            </div>
+            <div class="input-group">
+                <label>First Name</label>
+                <input class="form-control" type="text" placeholder="First Name" ng-model="controller.user.firstName" required/>
+            </div>
+            <div class="input-group">
+                <label>Last Name</label>
+                <input class="form-control" type="text" placeholder="Last Name" ng-model="controller.user.lastName" required/>
+            </div>
+            <div class="input-group">
+                <label>Birthday</label>
+                <input class="form-control" type="date" placeholder="Date of Birth" ng-model="controller.user.birthday" required/>
+            </div>
+            <div class="input-group">
+                <label>Sex</label>
+                <select class="form-control">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <label>Phone</label>
+                <input class="form-control" type="tel" placeholder="Phone Number" ng-model="controller.user.phone" required/>
+            </div>
+            <div class="input-group">
+                <label>Address</label>
+                <input class="form-control" type="text" placeholder="Address" ng-model="controller.user.address" required/>
+            </div>
+            <div class="input-group">
+                <label>Zip Code</label>
+                <input class="form-control" type="number" placeholder="Zip Code" ng-model="controller.user.zipCode" required/>
+            </div>
+            <div class="input-group">
+                <label>State/Province</label>
+                <input class="form-control" type="text" placeholder="State" ng-model="controller.user.state" required/>
+            </div>
+            <div class="input-group">
+                <label>Country</label>
+                <input class="form-control" type="text" placeholder="Country" ng-model="controller.user.country" required/>
+            </div>
+            <div class="input-group">
+                <label>Past Illnesses <span class="panel-info">Seperated By commas</span></label>
+                <input class="form-control" type="text" placeholder="Diagnosis" ng-model="controller.user.pastIllnesses" required/>
+            </div>
+        </div>
+    </div>
+    <br>
+    <input type="submit" value="save" class="btn btn-primary" />
 </form>

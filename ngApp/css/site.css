@@ -1,0 +1,42 @@
+nav a {
+    color: white;
+    padding-top: 14px;
+    padding-left: 10px;
+    display: -webkit-inline-box;
+}
+label {
+    display: inline-block;
+    padding: .2em .6em .3em;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: blue;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+select {
+    width: 150px;
+}
+p.patient-info.ng-binding {
+    font-size: large;
+    font-weight: 600;
+    color: brown;
+    border: solid gray 1px;
+    padding: 5px;
+    display: -webkit-inline-box;
+}
+.input-group {
+    position: relative;
+    display: block !important;
+    border-collapse: separate;
+}
+
+.input-group.case-types {
+    display: inline;
+    position: relative;
+    border: solid gray 1px;
+    border-radius: 6px;
+    margin-top: 21px;
+}

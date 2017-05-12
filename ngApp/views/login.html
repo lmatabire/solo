@@ -1,10 +1,21 @@
-<h2>Login</h2>
-<form ng-submit="controller.login()">
-<p>
-    <input type="text" placeholder="Username" ng-model="controller.user.username" required/>
-</p>
-<p>
-    <input type="password" placeholder="Password" ng-model="controller.user.password"required/>
-</p>
-<button type="submit">Login</button>
-</form>
+
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div  class="col-md-4">
+        <h2>Login</h2>
+        <form ng-submit="controller.login()">
+        <p>
+            <input type="text" class="form-control" placeholder="Username" ng-model="controller.user.username" required/>
+        </p>
+        <p>
+            <input class="form-control" type="password" placeholder="Password" ng-model="controller.user.password"required/>
+        </p>
+        <button class="btn btn-block" type="submit">Login</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>

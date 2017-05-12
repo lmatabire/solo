@@ -1,9 +1,11 @@
 namespace app {
 
-    angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap']).config((
+    angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap','angular-jwt'])
+        .config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
-        $locationProvider: ng.ILocationProvider
+        $locationProvider: ng.ILocationProvider,
+
     ) => {
         // Define routes
         $stateProvider
@@ -38,7 +40,7 @@ namespace app {
                 controllerAs: 'controller'
             })
             .state('patientVisit', {
-                url: '/patientVisit/:id',
+                url: '/patientVisit',
                 templateUrl: '/ngApp/views/patientVisit.html',
                 controller: app.Controllers.PatientVisitController,
                 controllerAs: 'controller'
@@ -70,7 +72,7 @@ namespace app {
             .state('patientVisits', {
                 url: '/patientVisits',
                 templateUrl: '/ngApp/views/patientVisits.html',
-                controller: app.Controllers.PatientVisitController,
+                controller: app.Controllers.VisitListController,
                 controllerAs: 'controller'
             })
             .state('notFound', {
@@ -78,13 +80,9 @@ namespace app {
                 templateUrl: '/ngApp/views/notFound.html'
             });
 
-        // Handle request for non-existent route
-        $urlRouterProvider.otherwise('/notFound');
-
-        // Enable HTML5 navigation
-        $locationProvider.html5Mode(true);
+            $urlRouterProvider.otherwise('/login');
+            console.log(window.localStorage.getItem("token"));
+            // Enable HTML5 navigation
+            $locationProvider.html5Mode(true);
     });
-
-
-
 }

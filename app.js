@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var index_1 = require("./routes/index");
 var users_1 = require("./routes/users");
+var patientVisits_1 = require("./routes/patientVisits");
 require('./models/user');
 require('./models/patientVisit');
 require('./config/passport');
@@ -29,8 +30,10 @@ app.use('/ngApp', express.static(path.join(__dirname, 'ngApp')));
 app.use('/api', express.static(path.join(__dirname, 'api')));
 app.use('/', index_1.default);
 app.use('/users', users_1.default);
+app.use('/appointments', patientVisits_1.default);
 app.get('/*', function (req, res, next) {
     if (/.js|.html|.css|templates|js|scripts/.test(req.path) || req.xhr) {
+        console.log("Token Not FOund");
         return next({ status: 404, message: 'Not Found' });
     }
     else {

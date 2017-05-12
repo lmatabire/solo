@@ -12,10 +12,17 @@
   <div class="container">
         <h1>Hospital App</h1>
         <nav class="navbar navbar-inverse">
-          <a href="/">Home</a> |
-          <a href="/login">Login</a> |
-          <a href="/register">Register</a> |
-          <a href="/edit/:id">Profile</a>
+            <a ui-sref="home">Home</a> |
+            <a ui-sref="doctors">Doctors</a> |
+            <a ui-sref="nurses">Nurses</a> |
+            <a ui-sref="patients">Patients</a> |
+            <a ui-sref="patientVisits">Visits</a> |
+            <a ui-sref="patientVisit">New Visit <i class="glyphicon glyphicon-plus"></i></a>
+            <div class="pull-right">
+                <a ui-sref="edit">Profile</a> |
+                <a ui-sref="login">Login</a> |
+                <a ui-sref="register">Register</a>
+            </div>
         </nav>
 
 
@@ -29,6 +36,7 @@
   <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
   <script src="/bower_components/angular-touch/angular-touch.min.js"></script>
   <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="/bower_components/angular-jwt/dist/angular-jwt.js"></script>
 
   <script src="/ngApp/app.js"></script>
   <script src="/ngApp/controllers/controllers.js"></script>
