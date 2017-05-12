@@ -3,10 +3,12 @@ var app;
     var Controllers;
     (function (Controllers) {
         var HomeController = (function () {
-            function HomeController($http, $state) {
+            function HomeController($http, $state, jwtHelper, $rootScope) {
                 var _this = this;
                 this.$http = $http;
                 this.$state = $state;
+                this.jwtHelper = jwtHelper;
+                this.$rootScope = $rootScope;
                 this.editUser = function (id) {
                     console.log("preesdded");
                     this.$state.go('edit', { id: id });
@@ -14,20 +16,24 @@ var app;
                 this.$http.get('/users').then(function (response) {
                     _this.users = response.data;
                 });
+                console.log(getRole(jwtHelper, $state, $rootScope));
             }
             return HomeController;
         }());
         Controllers.HomeController = HomeController;
         var doctorsController = (function () {
-            function doctorsController($http, $state) {
+            function doctorsController($http, $state, jwtHelper, $rootScope) {
                 var _this = this;
                 this.$http = $http;
                 this.$state = $state;
+                this.jwtHelper = jwtHelper;
+                this.$rootScope = $rootScope;
                 this.editDoctor = function (id) {
                     console.log("preesdded");
                     this.$state.go('edit', { id: id });
                 };
                 this.param = "Doctor";
+                console.log(getRole(jwtHelper, $state, $rootScope));
                 this.$http.get('users/by_role/' + this.param).then(function (response) {
                     console.log(response);
                     _this.doctors = response.data;
@@ -39,15 +45,18 @@ var app;
         }());
         Controllers.doctorsController = doctorsController;
         var patientsController = (function () {
-            function patientsController($http, $state) {
+            function patientsController($http, $state, jwtHelper, $rootScope) {
                 var _this = this;
                 this.$http = $http;
                 this.$state = $state;
+                this.jwtHelper = jwtHelper;
+                this.$rootScope = $rootScope;
                 this.editPatient = function (id) {
                     console.log("preesdded");
                     this.$state.go('edit', { id: id });
                 };
                 this.param = 'Patient';
+                console.log(getRole(jwtHelper, $state, $rootScope));
                 this.$http.get('users/by_role/' + this.param).then(function (response) {
                     console.log(response);
                     _this.patients = response.data;
@@ -59,15 +68,18 @@ var app;
         }());
         Controllers.patientsController = patientsController;
         var nursesController = (function () {
-            function nursesController($http, $state) {
+            function nursesController($http, $state, jwtHelper, $rootScope) {
                 var _this = this;
                 this.$http = $http;
                 this.$state = $state;
+                this.jwtHelper = jwtHelper;
+                this.$rootScope = $rootScope;
                 this.editNurse = function (id) {
                     console.log("preesdded");
                     this.$state.go('edit', { id: id });
                 };
                 this.param = "Nurse";
+                console.log(getRole(jwtHelper, $state, $rootScope));
                 this.$http.get('users/by_role/' + this.param).then(function (response) {
                     console.log(response);
                     _this.nurses = response.data;
@@ -79,10 +91,12 @@ var app;
         }());
         Controllers.nursesController = nursesController;
         var VisitListController = (function () {
-            function VisitListController($http, $state, $uibModal) {
+            function VisitListController($http, $state, jwtHelper, $rootScope, $uibModal) {
                 var _this = this;
                 this.$http = $http;
                 this.$state = $state;
+                this.jwtHelper = jwtHelper;
+                this.$rootScope = $rootScope;
                 this.$uibModal = $uibModal;
                 this.open = function (visit) {
                     this.$uibModal.open({
@@ -105,6 +119,7 @@ var app;
                         }
                     });
                 };
+                getRole(jwtHelper, $state, $rootScope);
                 this.$http.get('/appointments/').then(function (response) {
                     console.log(response);
                     _this.patientVisits = response.data;
@@ -116,10 +131,13 @@ var app;
         }());
         Controllers.VisitListController = VisitListController;
         var PatientVisitController = (function () {
-            function PatientVisitController($http, $state) {
+            function PatientVisitController($http, $state, jwtHelper, $rootScope) {
                 var _this = this;
                 this.$http = $http;
                 this.$state = $state;
+                this.jwtHelper = jwtHelper;
+                this.$rootScope = $rootScope;
+                getRole(jwtHelper, $state, $rootScope);
                 this.$http.get('/users').then(function (response) {
                     _this.users = response.data;
                 });
@@ -162,16 +180,18 @@ var app;
         }());
         Controllers.RegisterController = RegisterController;
         var LoginController = (function () {
-            function LoginController($http, $state) {
+            function LoginController($http, $state, $window) {
                 this.$http = $http;
                 this.$state = $state;
+                this.$window = $window;
             }
             LoginController.prototype.login = function () {
                 var _this = this;
                 console.log("loging in...", this.user);
                 this.$http.post('/users/login', this.user).then(function (response) {
-                    var token = response.data;
+                    var token = response.data['token'];
                     console.log("token is:", token);
+                    _this.$window.localStorage.token = JSON.stringify(token);
                     _this.$state.go('home');
                 }, function (error) {
                     console.log("login failed:", error);
@@ -181,25 +201,36 @@ var app;
         }());
         Controllers.LoginController = LoginController;
         var EditUserController = (function () {
-            function EditUserController($http, $state, $stateParams) {
+            function EditUserController($http, $state, $stateParams, $rootScope, jwtHelper) {
                 var _this = this;
                 this.$http = $http;
                 this.$state = $state;
                 this.$stateParams = $stateParams;
-                this.$http.get('/users/' + this.$stateParams['id']).then(function (response) {
-                    console.log(response);
-                    _this.user = response.data;
-                });
+                this.$rootScope = $rootScope;
+                this.jwtHelper = jwtHelper;
+                getRole(jwtHelper, $state, $rootScope);
+                if (this.$stateParams['id']) {
+                    this.$http.get('/users/' + this.$stateParams['id']).then(function (response) {
+                        console.log(response);
+                        _this.user = response.data;
+                    });
+                }
+                else {
+                    console.log("No id");
+                    this.$http.get('/users/' + $rootScope.id).then(function (response) {
+                        console.log(response);
+                        _this.user = response.data;
+                    });
+                }
             }
             EditUserController.prototype.editUser = function () {
                 var _this = this;
                 console.log("fhtjfjf fgjgfjgfkn dffdjnn");
                 this.$http.post('/users/update', this.user).then(function (response) {
-                    var token = response.data;
-                    console.log("token is:", token);
+                    _this.user = response.data;
                     _this.$state.go('home');
                 }, function (error) {
-                    console.log("login failed:", error);
+                    console.log("edit failed:", error);
                 });
             };
             return EditUserController;
@@ -224,5 +255,22 @@ var app;
             return AboutController;
         }());
         Controllers.AboutController = AboutController;
+        function getRole(jwtHelper, $state, $rootScope) {
+            var role;
+            var user;
+            if (window.localStorage.getItem("token")) {
+                user = jwtHelper.decodeToken(window.localStorage.getItem("token"));
+                role = user.role;
+                $rootScope.role = role;
+                $rootScope.id = user.id;
+                window.localStorage.setItem('role', role);
+                console.log(role);
+                return user;
+            }
+            else {
+                $state.go('login');
+            }
+        }
+        Controllers.getRole = getRole;
     })(Controllers = app.Controllers || (app.Controllers = {}));
 })(app || (app = {}));

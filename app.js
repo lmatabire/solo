@@ -33,6 +33,7 @@ app.use('/users', users_1.default);
 app.use('/appointments', patientVisits_1.default);
 app.get('/*', function (req, res, next) {
     if (/.js|.html|.css|templates|js|scripts/.test(req.path) || req.xhr) {
+        console.log("Token Not FOund");
         return next({ status: 404, message: 'Not Found' });
     }
     else {

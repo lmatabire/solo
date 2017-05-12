@@ -118,6 +118,6 @@ router.post('/login', (req, res, next) => {
     }
     return res.status(400).send(info);
   })(req, res, next);
-})
+});
 
 export default router;

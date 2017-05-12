@@ -36,7 +36,8 @@ UserSchema.method('generateJWT', function() {
   return jwt.sign({
     id: this._id,
     username: this.username,
-    email: this.email
+    email: this.email,
+    role:this.role
   }, 'SecretKey');
 });
 

@@ -1,9 +1,11 @@
 namespace app {
 
-    angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap']).config((
+    angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap','angular-jwt'])
+        .config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
-        $locationProvider: ng.ILocationProvider
+        $locationProvider: ng.ILocationProvider,
+
     ) => {
         // Define routes
         $stateProvider
@@ -78,13 +80,9 @@ namespace app {
                 templateUrl: '/ngApp/views/notFound.html'
             });
 
-        // Handle request for non-existent route
-        $urlRouterProvider.otherwise('/notFound');
-
-        // Enable HTML5 navigation
-        $locationProvider.html5Mode(true);
+            $urlRouterProvider.otherwise('/login');
+            console.log(window.localStorage.getItem("token"));
+            // Enable HTML5 navigation
+            $locationProvider.html5Mode(true);
     });
-
-
-
 }

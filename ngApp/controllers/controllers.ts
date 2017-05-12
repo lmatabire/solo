@@ -3,14 +3,16 @@ namespace app.Controllers {
   export class HomeController {
     public users;
     public user;
+
     public editUser = function(id){
       console.log("preesdded");
       this.$state.go('edit', {id: id})
-    }
-    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+    };
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private jwtHelper,private $rootScope: ng.IRootScopeService) {
       this.$http.get('/users').then((response) => {
         this.users = response.data
-      })
+      });
+      console.log(getRole(jwtHelper,$state,$rootScope));
     }
   }
   export class doctorsController {
@@ -20,11 +22,13 @@ namespace app.Controllers {
     public editDoctor = function(id){
       console.log("preesdded");
       this.$state.go('edit', {id: id})
-    }
+    };
     public param = "Doctor";
-    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private jwtHelper,private $rootScope: ng.IRootScopeService) {
+
+      console.log(getRole(jwtHelper,$state,$rootScope));
       this.$http.get('users/by_role/'+ this.param).then((response) => {
-        console.log(response)
+        console.log(response);
         this.doctors = response.data
       }, (err)=>{
         console.log(err.data)
@@ -40,7 +44,8 @@ namespace app.Controllers {
       this.$state.go('edit', {id: id})
     }
     public param ='Patient';
-    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private jwtHelper,private $rootScope: ng.IRootScopeService) {
+      console.log(getRole(jwtHelper,$state,$rootScope));
       this.$http.get('users/by_role/'+ this.param).then((response) => {
         console.log(response)
         this.patients = response.data
@@ -57,7 +62,8 @@ namespace app.Controllers {
       this.$state.go('edit', {id: id})
     };
     public param = "Nurse";
-    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private jwtHelper,private $rootScope: ng.IRootScopeService) {
+      console.log(getRole(jwtHelper,$state,$rootScope));
       this.$http.get('users/by_role/'+this.param).then((response) => {
         console.log(response);
 
@@ -93,7 +99,8 @@ namespace app.Controllers {
       });
     };
 
-    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private $uibModal: ng.ui.bootstrap.IModalService) {
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private jwtHelper,private $rootScope: ng.IRootScopeService,private $uibModal: ng.ui.bootstrap.IModalService) {
+      getRole(jwtHelper,$state,$rootScope);
       this.$http.get('/appointments/').then((response) => {
         console.log(response);
         this.patientVisits = response.data
@@ -115,7 +122,8 @@ namespace app.Controllers {
           console.log("Registration failed:", error)
         })
       }
-    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService,private jwtHelper,private $rootScope: ng.IRootScopeService) {
+      getRole(jwtHelper,$state,$rootScope);
       this.$http.get('/users').then((response) => {
         this.users = response.data
       });
@@ -151,38 +159,47 @@ namespace app.Controllers {
     public login() {
       console.log("loging in...", this.user);
       this.$http.post('/users/login', this.user).then((response) => {
-        let token = response.data;
+        let token = response.data['token'];
         console.log("token is:", token);
+        this.$window.localStorage.token = JSON.stringify(token);
         this.$state.go('home');
       }, (error) => {
         //error caught
         console.log("login failed:", error)
       })
     }
-    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $window) {
 
     }
   }
   export class EditUserController {
     public user;
-
     public editUser() {
-      console.log("fhtjfjf fgjgfjgfkn dffdjnn")
+      console.log("fhtjfjf fgjgfjgfkn dffdjnn");
       this.$http.post('/users/update', this.user).then((response) => {
-        let token = response.data;
-        console.log("token is:", token)
+        this.user = response.data;
         this.$state.go('home');
       }, (error) => {
-        console.log("login failed:", error)
+        console.log("edit failed:", error)
       })
     }
+
     constructor(private $http: ng.IHttpService,
-      private $state: ng.ui.IStateService,
-      private $stateParams: ng.ui.IStateParamsService) {
-      this.$http.get('/users/' + this.$stateParams['id']).then((response) => {
-        console.log(response);
-        this.user = response.data;
-      })
+                private $state: ng.ui.IStateService,
+                private $stateParams: ng.ui.IStateParamsService, private $rootScope: ng.IRootScopeService,private jwtHelper) {
+      getRole(jwtHelper,$state,$rootScope);
+      if (this.$stateParams['id']) {
+        this.$http.get('/users/' + this.$stateParams['id']).then((response) => {
+          console.log(response);
+          this.user = response.data;
+        })
+      } else {
+        console.log("No id");
+        this.$http.get('/users/' + $rootScope.id).then((response) => {
+          console.log(response);
+          this.user = response.data;
+        })
+      }
     }
   }
   export class AboutController {
@@ -202,5 +219,20 @@ namespace app.Controllers {
                     this.user = response.data;
                   })
                 }
+  }
+  export function getRole(jwtHelper,$state,$rootScope){
+    let role;
+    let user;
+    if(window.localStorage.getItem("token")) {
+      user = jwtHelper.decodeToken(window.localStorage.getItem("token"));
+      role = user.role;
+      $rootScope.role = role;
+      $rootScope.id = user.id;
+      window.localStorage.setItem('role',role);
+      console.log(role);
+      return user;
+    }else {
+      $state.go('login')
+    }
   }
 }

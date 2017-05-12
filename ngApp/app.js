@@ -1,6 +1,7 @@
 var app;
 (function (app) {
-    angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap']).config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+    angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular-jwt'])
+        .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('home', {
             url: '/',
@@ -72,7 +73,8 @@ var app;
             url: '/notFound',
             templateUrl: '/ngApp/views/notFound.html'
         });
-        $urlRouterProvider.otherwise('/notFound');
+        $urlRouterProvider.otherwise('/login');
+        console.log(window.localStorage.getItem("token"));
         $locationProvider.html5Mode(true);
     });
 })(app || (app = {}));
