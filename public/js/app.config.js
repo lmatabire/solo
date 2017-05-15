@@ -1,14 +1,7 @@
-var app;
-(function (app) {
-    angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular-jwt'])
-        .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+var App;
+(function (App) {
+    function configuration($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
-            .state('home', {
-            url: '/',
-            templateUrl: '/ngApp/views/home.html',
-            controller: app.Controllers.HomeController,
-            controllerAs: 'controller'
-        })
             .state('about', {
             url: '/about/:id',
             templateUrl: '/ngApp/views/about.html',
@@ -76,5 +69,6 @@ var app;
         $urlRouterProvider.otherwise('/login');
         console.log(window.localStorage.getItem("token"));
         $locationProvider.html5Mode(true);
-    });
-})(app || (app = {}));
+    }
+    App.configuration = configuration;
+})(App || (App = {}));

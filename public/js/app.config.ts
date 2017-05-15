@@ -1,28 +1,13 @@
-namespace app {
-
-    angular.module('app', ['ui.router', 'ngResource', 'ui.bootstrap','angular-jwt'])
-        .config((
+namespace App {
+    export function configuration(
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
-        $locationProvider: ng.ILocationProvider,
-
-    ) => {
+        $locationProvider: ng.ILocationProvider
+    ) {
         // Define routes
         $stateProvider
-            .state('home', {
-                url: '/',
-                templateUrl: '/ngApp/views/home.html',
-                controller: app.Controllers.HomeController,
-                controllerAs: 'controller'
-            })
-            .state('about', {
-                url: '/about/:id',
-                templateUrl: '/ngApp/views/about.html',
-                controller: app.Controllers.AboutController,
-                controllerAs: 'controller'
-            })
             .state('edit', {
-                url:'/edit/:id',
+                url: '/edit/:id',
                 templateUrl: '/ngApp/views/editUser.html',
                 controller: app.Controllers.EditUserController,
                 controllerAs: 'controller'
@@ -80,9 +65,9 @@ namespace app {
                 templateUrl: '/ngApp/views/notFound.html'
             });
 
-            $urlRouterProvider.otherwise('/login');
-            console.log(window.localStorage.getItem("token"));
-            // Enable HTML5 navigation
-            $locationProvider.html5Mode(true);
-    });
+        $urlRouterProvider.otherwise('/login');
+        console.log(window.localStorage.getItem("token"));
+        // Enable HTML5 navigation
+        $locationProvider.html5Mode(true);
+    }
 }
