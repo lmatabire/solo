@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET users listing. */
-router.get('/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) { 
   User.findOne({_id:req.params.id}).then((user) => {
     console.log('');
     res.json(user);

@@ -20,7 +20,7 @@ let UserSchema = new mongoose.Schema({
   salt: String,
   sex: String,
   birthday: Date
-}); 
+});
 
 UserSchema.method('setPassword', function(password) {
   this.salt = crypto.randomBytes(16).toString('hex');
@@ -36,7 +36,8 @@ UserSchema.method('generateJWT', function() {
   return jwt.sign({
     id: this._id,
     username: this.username,
-    email: this.email
+    email: this.email,
+    role: this.role
   }, 'SecretKey');
 });
 
