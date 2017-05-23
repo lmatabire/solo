@@ -19,5 +19,9 @@
     "buildOnSave": false,
     "atom": {
         "rewriteTsconfig": false
-    }
+    },
+    "filesGlob": [
+      "./src/**/*.ts",
+      "./src/**/*.tsx"
+    ]
 }
